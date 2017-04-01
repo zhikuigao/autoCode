@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mysql.ProblemDataMapper" >
+  <resultMap id="BaseResultMap" type="mysql.ProblemData" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="first_classification" property="firstClassification" jdbcType="VARCHAR" />
+    <result column="second_classification" property="secondClassification" jdbcType="VARCHAR" />
+    <result column="content_problem" property="contentProblem" jdbcType="VARCHAR" />
+    <result column="status_problem" property="statusProblem" jdbcType="INTEGER" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="amount_money" property="amountMoney" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_time" property="lastTime" jdbcType="TIMESTAMP" />
+    <result column="spare_field1" property="spareField1" jdbcType="VARCHAR" />
+    <result column="spare_field2" property="spareField2" jdbcType="VARCHAR" />
+    <result column="spare_field3" property="spareField3" jdbcType="VARCHAR" />
+    <result column="spare_field4" property="spareField4" jdbcType="VARCHAR" />
+    <result column="spare_field5" property="spareField5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, first_classification, second_classification, content_problem, status_problem, 
+    openid, mobile_phone, amount_money, create_time, last_time, spare_field1, spare_field2, 
+    spare_field3, spare_field4, spare_field5
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="mysql.ProblemDataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_problem_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_problem_data
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_problem_data
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="mysql.ProblemDataExample" >
+    delete from tb_problem_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="mysql.ProblemData" >
+    insert into tb_problem_data (id, first_classification, second_classification, 
+      content_problem, status_problem, openid, 
+      mobile_phone, amount_money, create_time, 
+      last_time, spare_field1, spare_field2, 
+      spare_field3, spare_field4, spare_field5
+      )
+    values (#{id,jdbcType=INTEGER}, #{firstClassification,jdbcType=VARCHAR}, #{secondClassification,jdbcType=VARCHAR}, 
+      #{contentProblem,jdbcType=VARCHAR}, #{statusProblem,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, 
+      #{mobilePhone,jdbcType=VARCHAR}, #{amountMoney,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastTime,jdbcType=TIMESTAMP}, #{spareField1,jdbcType=VARCHAR}, #{spareField2,jdbcType=VARCHAR}, 
+      #{spareField3,jdbcType=VARCHAR}, #{spareField4,jdbcType=VARCHAR}, #{spareField5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="mysql.ProblemData" >
+    insert into tb_problem_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="firstClassification != null" >
+        first_classification,
+      </if>
+      <if test="secondClassification != null" >
+        second_classification,
+      </if>
+      <if test="contentProblem != null" >
+        content_problem,
+      </if>
+      <if test="statusProblem != null" >
+        status_problem,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="mobilePhone != null" >
+        mobile_phone,
+      </if>
+      <if test="amountMoney != null" >
+        amount_money,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastTime != null" >
+        last_time,
+      </if>
+      <if test="spareField1 != null" >
+        spare_field1,
+      </if>
+      <if test="spareField2 != null" >
+        spare_field2,
+      </if>
+      <if test="spareField3 != null" >
+        spare_field3,
+      </if>
+      <if test="spareField4 != null" >
+        spare_field4,
+      </if>
+      <if test="spareField5 != null" >
+        spare_field5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="firstClassification != null" >
+        #{firstClassification,jdbcType=VARCHAR},
+      </if>
+      <if test="secondClassification != null" >
+        #{secondClassification,jdbcType=VARCHAR},
+      </if>
+      <if test="contentProblem != null" >
+        #{contentProblem,jdbcType=VARCHAR},
+      </if>
+      <if test="statusProblem != null" >
+        #{statusProblem,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="amountMoney != null" >
+        #{amountMoney,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spareField1 != null" >
+        #{spareField1,jdbcType=VARCHAR},
+      </if>
+      <if test="spareField2 != null" >
+        #{spareField2,jdbcType=VARCHAR},
+      </if>
+      <if test="spareField3 != null" >
+        #{spareField3,jdbcType=VARCHAR},
+      </if>
+      <if test="spareField4 != null" >
+        #{spareField4,jdbcType=VARCHAR},
+      </if>
+      <if test="spareField5 != null" >
+        #{spareField5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="mysql.ProblemDataExample" resultType="java.lang.Integer" >
+    select count(*) from tb_problem_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_problem_data
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.firstClassification != null" >
+        first_classification = #{record.firstClassification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secondClassification != null" >
+        second_classification = #{record.secondClassification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contentProblem != null" >
+        content_problem = #{record.contentProblem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.statusProblem != null" >
+        status_problem = #{record.statusProblem,jdbcType=INTEGER},
+      </if>
+      <if test="record.openid != null" >
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilePhone != null" >
+        mobile_phone = #{record.mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amountMoney != null" >
+        amount_money = #{record.amountMoney,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastTime != null" >
+        last_time = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.spareField1 != null" >
+        spare_field1 = #{record.spareField1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spareField2 != null" >
+        spare_field2 = #{record.spareField2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spareField3 != null" >
+        spare_field3 = #{record.spareField3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spareField4 != null" >
+        spare_field4 = #{record.spareField4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spareField5 != null" >
+        spare_field5 = #{record.spareField5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_problem_data
+    set id = #{record.id,jdbcType=INTEGER},
+      first_classification = #{record.firstClassification,jdbcType=VARCHAR},
+      second_classification = #{record.secondClassification,jdbcType=VARCHAR},
+      content_problem = #{record.contentProblem,jdbcType=VARCHAR},
+      status_problem = #{record.statusProblem,jdbcType=INTEGER},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      mobile_phone = #{record.mobilePhone,jdbcType=VARCHAR},
+      amount_money = #{record.amountMoney,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      last_time = #{record.lastTime,jdbcType=TIMESTAMP},
+      spare_field1 = #{record.spareField1,jdbcType=VARCHAR},
+      spare_field2 = #{record.spareField2,jdbcType=VARCHAR},
+      spare_field3 = #{record.spareField3,jdbcType=VARCHAR},
+      spare_field4 = #{record.spareField4,jdbcType=VARCHAR},
+      spare_field5 = #{record.spareField5,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="mysql.ProblemData" >
+    update tb_problem_data
+    <set >
+      <if test="firstClassification != null" >
+        first_classification = #{firstClassification,jdbcType=VARCHAR},
+      </if>
+      <if test="secondClassification != null" >
+        second_classification = #{secondClassification,jdbcType=VARCHAR},
+      </if>
+      <if test="contentProblem != null" >
+        content_problem = #{contentProblem,jdbcType=VARCHAR},
+      </if>
+      <if test="statusProblem != null" >
+        status_problem = #{statusProblem,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="amountMoney != null" >
+        amount_money = #{amountMoney,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastTime != null" >
+        last_time = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="spareField1 != null" >
+        spare_field1 = #{spareField1,jdbcType=VARCHAR},
+      </if>
+      <if test="spareField2 != null" >
+        spare_field2 = #{spareField2,jdbcType=VARCHAR},
+      </if>
+      <if test="spareField3 != null" >
+        spare_field3 = #{spareField3,jdbcType=VARCHAR},
+      </if>
+      <if test="spareField4 != null" >
+        spare_field4 = #{spareField4,jdbcType=VARCHAR},
+      </if>
+      <if test="spareField5 != null" >
+        spare_field5 = #{spareField5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mysql.ProblemData" >
+    update tb_problem_data
+    set first_classification = #{firstClassification,jdbcType=VARCHAR},
+      second_classification = #{secondClassification,jdbcType=VARCHAR},
+      content_problem = #{contentProblem,jdbcType=VARCHAR},
+      status_problem = #{statusProblem,jdbcType=INTEGER},
+      openid = #{openid,jdbcType=VARCHAR},
+      mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      amount_money = #{amountMoney,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_time = #{lastTime,jdbcType=TIMESTAMP},
+      spare_field1 = #{spareField1,jdbcType=VARCHAR},
+      spare_field2 = #{spareField2,jdbcType=VARCHAR},
+      spare_field3 = #{spareField3,jdbcType=VARCHAR},
+      spare_field4 = #{spareField4,jdbcType=VARCHAR},
+      spare_field5 = #{spareField5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
